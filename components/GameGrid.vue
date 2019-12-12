@@ -1,9 +1,7 @@
 <template>
-  <div>
-    {{gridWidth}}
-    {{gridHeight}}
+  <div class="game-grid" :style="gridStyle">
     <ul v-for="count in gridItems" :key="count">
-      <li>{{message[count]}}</li>
+      <li>{{message[count-1]}}</li>
     </ul>
   </div>
 </template>
@@ -24,7 +22,10 @@ export default {
   },
   data() {
     return {
-
+      gridStyle: {
+        gridTemplateColumns: `repeat(${this.gridWidth}, 1fr)`,
+        gridTemplateRows: `repeat(${this.gridHeight}, 1fr)`
+      }
     }
   },
   methods: {
@@ -38,3 +39,12 @@ export default {
   },
 }
 </script>
+
+<style>
+  .game-grid {
+    display: grid;
+  }
+  ul > li {
+    list-style-type: none;
+  }
+</style>
