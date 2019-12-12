@@ -8,6 +8,7 @@
         Game to find the hidden words
       </h2>
     </div>
+    <!-- TODO: can move Game-Container to a seperate page and have edit/define statement here -->
     <Game-Container/>
   </div>
 </template>
