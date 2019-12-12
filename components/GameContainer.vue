@@ -25,7 +25,7 @@ export default {
     },
     gridHeight() {
       // calc the grid rows for the size of the statement 
-      return this.$store.state.defaultStatement.length / 10 + 1;
+      return this.$store.state.defaultStatement.length / this.gridWidth + 1;
     },
   },
 }
