@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import GameContainer from '~/components/GameContainer.vue'
+import GameContainer from '~/components/GameContainer.vue';
 
 export default {
   components: {
