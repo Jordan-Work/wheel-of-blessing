@@ -17,9 +17,6 @@ export default {
       type: Number
     },
     message: {
-      type: String
-    },
-    foundLetters: {
       type: Array
     }
   },
@@ -33,7 +30,7 @@ export default {
   },
   computed: {
     gridItems() {
-      return this.gridWidth * this.gridHeight;
+      return Math.round(this.gridWidth * this.gridHeight);
     },
     handleFoundLetter() {
       return this.$store.state.lettersFound;
