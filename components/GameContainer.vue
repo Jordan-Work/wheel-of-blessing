@@ -4,14 +4,14 @@
     <p>{{foundLetterPhrase}}</p>
     <Game-Grid :gridWidth="gridWidth"
       :gridHeight="gridHeight"
-      :message="defaultStatement" 
+      :message="messageToArray" 
       :foundLetters="foundLetter"/>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-import  GameGrid from './GameGrid.Vue'
+import { mapState } from 'vuex';
+import  GameGrid from './GameGrid.Vue';
 
 export default {
   created() {
@@ -23,17 +23,21 @@ export default {
   data() {
     return {
         typedLetter: '',
-        notFound: false
+        nonFound: ''
       }
   },
   computed: {
     ...mapState(['defaultStatement']),
+    messageToArray() {
+      let msg = this.defaultStatement.split('');
+      return msg;
+    },
     foundLetter() {
       /**
        * used to compute what letters are found commit only new ones to the store
        * also updates the logic used for foundLetterPhrase()
        */
-      this.notFound = false;
+      
       let statement = this.$store.state.defaultStatement.replace(/\s/g, '').split('')
       let found = statement.filter((letter) => this.typedLetter.toLowerCase() === letter.toLowerCase());
       
@@ -43,10 +47,10 @@ export default {
       if (found.length && !alreadyFound.length) {
         this.$store.commit('addLettersFound', found[0]);
       } else {
-        this.notFound = true; 
+        this.nonFound = this.typedLetter;
       }
       this.typedLetter = '';
-      return found.length ? found : '';
+      return found;
     },
     foundLetterPhrase() {
       /**
@@ -56,7 +60,7 @@ export default {
       if (this.typedLetter === '' || this.typedLetter === ' ') {
         return '';
       }
-      return this.notFound ? `There are ${this.foundLetter.length} ${this.foundLetter[0]}'s` : `There are no ${this.typedLetter}'s`;
+      return this.foundLetter.length ? `There are ${this.foundLetter.length} ${this.foundLetter[0]}'s` : `There are no ${this.nonFound}'s`;
     },
     gridWidth() {
       return this.$store.state.minimumGridSize;
@@ -65,8 +69,8 @@ export default {
       // calc the grid rows for the size of the statement 
       let columns = this.$store.state.defaultStatement.length / this.gridWidth + 1;
       return Math.ceil(columns);
-    },
-  },
+    }
+  }
 }
 </script>
 
