@@ -1,8 +1,8 @@
 <template>
   <div class="game-grid" :style="gridStyle">
-    <ul v-for="count in gridItems" :key="count">
-      <li>{{message[count-1]}}</li>
-    </ul>
+    <p v-for="count in gridItems" :key="count" :class="{'show-box': message[count-1] !== ' '}">
+      <span :class="{'show-letter': handleFoundLetter.includes(message[count-1])}">{{message[count-1]}}</span>
+    </p>
   </div>
 </template>
 
@@ -18,6 +18,9 @@ export default {
     },
     message: {
       type: String
+    },
+    foundLetters: {
+      type: Array
     }
   },
   data() {
@@ -28,13 +31,12 @@ export default {
       }
     }
   },
-  methods: {
-
-  },
-
   computed: {
     gridItems() {
       return this.gridWidth * this.gridHeight;
+    },
+    handleFoundLetter() {
+      return this.$store.state.lettersFound;
     }
   },
 }
@@ -44,7 +46,22 @@ export default {
   .game-grid {
     display: grid;
   }
-  ul > li {
-    list-style-type: none;
+  .game-grid .show-box {
+    background-color:#fff;
+  }
+  .game-grid p {
+    border: 2px solid #777;
+    background-color:#90ee90;
+    display: flex;
+    width: 4em;
+    justify-content: center;
+    align-items: center;
+    height: 2.5em;
+  }
+  .game-grid span {
+    visibility: hidden;
+  }
+  span.show-letter {
+    visibility: visible;
   }
 </style>
