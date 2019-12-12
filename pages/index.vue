@@ -1,39 +1,23 @@
 <template>
   <div class="container">
     <div>
-      <logo />
       <h1 class="title">
-        wheelofblessing
+        Wheel Of Blessing
       </h1>
       <h2 class="subtitle">
-        game to find the hidden words
+        Game to find the hidden words
       </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
-      </div>
     </div>
+    <Game-Container/>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+import GameContainer from '~/components/GameContainer.vue'
 
 export default {
   components: {
-    Logo
+    GameContainer
   }
 }
 </script>
@@ -41,11 +25,12 @@ export default {
 <style>
 .container {
   margin: 0 auto;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  flex-direction: column;
 }
 
 .title {
